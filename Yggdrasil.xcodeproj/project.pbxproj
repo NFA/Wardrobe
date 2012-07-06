@@ -1,0 +1,263 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ADCB279315A6E15F00D55E6F /* lexer.rl in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279215A6DCD600D55E6F /* lexer.rl */; };
+		ADCB279515A6E1C200D55E6F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279415A6E1C200D55E6F /* main.cpp */; };
+		ADCB279C15A7276700D55E6F /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279B15A7276700D55E6F /* token.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		ADCB279115A6DC0A00D55E6F /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.rl";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.cpp",
+			);
+			script = "echo \"Generating source code from ragel input files.\"\n\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -G2 -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating graph file from ragel grammar.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -V -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.dot";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ADCB278215A6DB7600D55E6F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ADCB278415A6DB7600D55E6F /* Yggdrasil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Yggdrasil; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADCB279215A6DCD600D55E6F /* lexer.rl */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = lexer.rl; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		ADCB279415A6E1C200D55E6F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		ADCB279915A717E500D55E6F /* lexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lexer.h; sourceTree = "<group>"; };
+		ADCB279A15A725C700D55E6F /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
+		ADCB279B15A7276700D55E6F /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ADCB278115A6DB7600D55E6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ADCB277915A6DB7600D55E6F = {
+			isa = PBXGroup;
+			children = (
+				ADCB279F15A753AD00D55E6F /* etc */,
+				ADCB279815A6E80300D55E6F /* src */,
+				ADCB278515A6DB7600D55E6F /* bin */,
+			);
+			sourceTree = "<group>";
+		};
+		ADCB278515A6DB7600D55E6F /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				ADCB278415A6DB7600D55E6F /* Yggdrasil */,
+			);
+			path = bin;
+			sourceTree = "<group>";
+		};
+		ADCB279715A6E7EB00D55E6F /* derived */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = derived;
+			sourceTree = "<group>";
+		};
+		ADCB279815A6E80300D55E6F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				ADCB279715A6E7EB00D55E6F /* derived */,
+				ADCB279E15A727A100D55E6F /* grammar */,
+				ADCB279415A6E1C200D55E6F /* main.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		ADCB279E15A727A100D55E6F /* grammar */ = {
+			isa = PBXGroup;
+			children = (
+				ADCB279215A6DCD600D55E6F /* lexer.rl */,
+				ADCB279915A717E500D55E6F /* lexer.h */,
+				ADCB279B15A7276700D55E6F /* token.cpp */,
+				ADCB279A15A725C700D55E6F /* token.h */,
+			);
+			path = grammar;
+			sourceTree = "<group>";
+		};
+		ADCB279F15A753AD00D55E6F /* etc */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = etc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ADCB278315A6DB7600D55E6F /* Yggdrasil */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADCB278E15A6DB7600D55E6F /* Build configuration list for PBXNativeTarget "Yggdrasil" */;
+			buildPhases = (
+				ADCB278015A6DB7600D55E6F /* Sources */,
+				ADCB278115A6DB7600D55E6F /* Frameworks */,
+				ADCB278215A6DB7600D55E6F /* CopyFiles */,
+			);
+			buildRules = (
+				ADCB279115A6DC0A00D55E6F /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = Yggdrasil;
+			productName = ragel_test;
+			productReference = ADCB278415A6DB7600D55E6F /* Yggdrasil */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ADCB277B15A6DB7600D55E6F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = nfa106;
+			};
+			buildConfigurationList = ADCB277E15A6DB7600D55E6F /* Build configuration list for PBXProject "Yggdrasil" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ADCB277915A6DB7600D55E6F;
+			productRefGroup = ADCB278515A6DB7600D55E6F /* bin */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ADCB278315A6DB7600D55E6F /* Yggdrasil */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ADCB278015A6DB7600D55E6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADCB279315A6E15F00D55E6F /* lexer.rl in Sources */,
+				ADCB279C15A7276700D55E6F /* token.cpp in Sources */,
+				ADCB279515A6E1C200D55E6F /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ADCB278C15A6DB7600D55E6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		ADCB278D15A6DB7600D55E6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		ADCB278F15A6DB7600D55E6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				PRODUCT_NAME = Yggdrasil;
+				SHARED_PRECOMPS_DIR = build;
+			};
+			name = Debug;
+		};
+		ADCB279015A6DB7600D55E6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				PRODUCT_NAME = Yggdrasil;
+				SHARED_PRECOMPS_DIR = build;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ADCB277E15A6DB7600D55E6F /* Build configuration list for PBXProject "Yggdrasil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADCB278C15A6DB7600D55E6F /* Debug */,
+				ADCB278D15A6DB7600D55E6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADCB278E15A6DB7600D55E6F /* Build configuration list for PBXNativeTarget "Yggdrasil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADCB278F15A6DB7600D55E6F /* Debug */,
+				ADCB279015A6DB7600D55E6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ADCB277B15A6DB7600D55E6F /* Project object */;
+}
