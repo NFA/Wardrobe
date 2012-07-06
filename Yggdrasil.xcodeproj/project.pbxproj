@@ -39,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AD41C17015A75B96005BDE6F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		ADCB278415A6DB7600D55E6F /* Yggdrasil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Yggdrasil; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADCB279215A6DCD600D55E6F /* lexer.rl */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = lexer.rl; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		ADCB279415A6E1C200D55E6F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		ADCB277915A6DB7600D55E6F = {
 			isa = PBXGroup;
 			children = (
+				AD41C17015A75B96005BDE6F /* README.md */,
 				ADCB279F15A753AD00D55E6F /* etc */,
 				ADCB279815A6E80300D55E6F /* src */,
 				ADCB278515A6DB7600D55E6F /* bin */,
