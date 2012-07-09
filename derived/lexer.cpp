@@ -1,5 +1,5 @@
 
-#line 1 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 1 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 #include <iostream>
 #include <cstring>
 #include <memory>
@@ -10,7 +10,7 @@
 namespace LPC {
 namespace Grammar {
 
-/*
+
 char *getTokenData(const char* start, const char* end) {
   char *data = new char[end - start + 1];
   strncpy(data, start, end - start);
@@ -18,34 +18,31 @@ char *getTokenData(const char* start, const char* end) {
   return data;
 
 }
-*/
-
-std::string getTokenData(const char* start, const char* end) {
-  return std::string(start).substr(0, end - start);
-}
 
 
-#line 88 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 97 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 
 
-// had ragel command 'write data' here previously but I want the data members to 
+// had ragel command %%write data here previously but I want the data members to 
 // part of the Lexer class definiation, so i declared
 // static const int lexer_start = 1
-// it the lexer header   
-    
+// it the lexer header    
+
+#line 32 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
+static const int lexer_start = 1;
+static const int lexer_first_final = 1;
+static const int lexer_error = 0;
+
+static const int lexer_en_main = 1;
 
 
-Lexer::~Lexer() {
-  std::cout << "Lexer destroyed." << std::endl;
-  //ParseFree(lparser, free);
-}
+#line 104 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 
-Lexer::Lexer(const char* data, std::size_t len): p(data), pe(data+len), eof(pe) {
-
-  //lparser = ParserAlloc(malloc);
+Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof(pe) {
+  current_line = 0;
+  current_column = 0;
   
-  
-#line 49 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
+#line 46 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
 	{
 	cs = lexer_start;
 	ts = 0;
@@ -53,70 +50,84 @@ Lexer::Lexer(const char* data, std::size_t len): p(data), pe(data+len), eof(pe) 
 	act = 0;
 	}
 
-#line 107 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
-
+#line 109 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 }
 
-void Lexer::Execute() { 
+
+void Lexer::Lex() { 
   
-#line 63 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
+#line 60 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
 	switch ( cs )
 	{
 tr0:
-#line 62 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 57 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  //++line_col;
+  switch (*ts) {
+    case ' ':
+      ++current_column;
+      break;
+    case '\t':
+      ++current_line;
+      break;
+    case '\n':
+      ++current_line;
+      current_column = 0;
+      break;
+    case '\r':
+      // nop, only handle CRLF and LF newlines
+      break;
+  }
 }}
 	goto st1;
 tr2:
-#line 49 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 44 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::OpenP, getTokenData(ts, te));
+  addToken(TokenType::OpenP, ts, te);
 }}
 	goto st1;
 tr3:
-#line 53 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 48 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::CloseP, getTokenData(ts, te));
+  addToken(TokenType::CloseP, ts, te);
 }}
 	goto st1;
 tr4:
-#line 41 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 36 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-    addToken(TokenType::Times, getTokenData(ts, te));
+  addToken(TokenType::Times, ts, te);
 }}
 	goto st1;
 tr5:
-#line 33 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 28 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::Plus, getTokenData(ts, te));
+  addToken(TokenType::Plus, ts, te);
 }}
 	goto st1;
 tr6:
-#line 37 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 32 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::Minus, getTokenData(ts, te));
+  addToken(TokenType::Minus, ts, te);
 }}
 	goto st1;
 tr7:
-#line 45 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 40 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::Divide, getTokenData(ts, te));
+  addToken(TokenType::Divide, ts, te);
 }}
 	goto st1;
 tr9:
-#line 29 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 24 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p+1;{
-  addToken(TokenType::Semi, getTokenData(ts, te));
+  addToken(TokenType::Semi, ts, te);
 }}
 	goto st1;
 tr10:
-#line 57 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 52 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 	{te = p;p--;{
-  addToken(TokenType::Number, getTokenData(ts, te));
+  addToken(TokenType::Number, ts, te);
   
 }}
 	goto st1;
@@ -128,7 +139,7 @@ st1:
 case 1:
 #line 1 "NONE"
 	{ts = p;}
-#line 132 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
+#line 143 "/Users/NFA/development/yggdrasil/derived/lexer.cpp"
 	switch( (*p) ) {
 		case 32: goto tr0;
 		case 40: goto tr2;
@@ -170,7 +181,7 @@ case 2:
 	_out: {}
 	}
 
-#line 112 "/Users/NFA/development/yggdrasil/src/grammar/lexer.rl"
+#line 114 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 }
 
 void Lexer::DumpTokens() {
@@ -183,10 +194,22 @@ void Lexer::DumpTokens() {
   }
 }
 
-
-void Lexer::addToken(TokenType token_type, std::string token_data) {
-  tokens.push_back(std::unique_ptr<Token>(new Token(token_type, token_data)));
+int Lexer::CountTokens() const {
+  return tokens.size();
 }
+
+
+void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
+  tokens.push_back(std::unique_ptr<Token>(
+    new Token(token_type, getTokenData(ts, te), current_line, current_column)
+  ));
+  advanceLocation(ts, te);
+}
+
+void Lexer::advanceLocation(const char *ts, const char *te) {
+  current_column += (unsigned short)(te - ts);
+}
+
 
 } /* namespace Grammar */
 } /* namespace LPC */

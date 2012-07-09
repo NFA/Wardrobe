@@ -38,24 +38,27 @@ std::string printTokenType(const TokenType &tok) {
   return ret;
 }
 
-Token::Token(TokenType type, std::string data, unsigned short line, unsigned short col) : 
+Token::Token(TokenType type, const char* data, unsigned short line, unsigned short col) : 
   type(type), data(data), loc(line, col) {
   //std::cout << "Constructing a token." << std::endl;
 }
 
-Token::Token(TokenType type, std::string data) :
+Token::Token(TokenType type, const char* data) :
   type(type), data(data) {
   //std::cout << "Constructing a token " << data << "." << std::endl;
   loc.first = -1;
   loc.second = -1;
 }
-Token::Token(const Token& src) : type(src.type), data(src.data), loc(src.loc) {
-  std::cout << "Copying a token " << data << "." << std::endl;
+
+bool Token::operator==(const Token& rhs) const {
+  bool ret = (this->type == rhs.type) && (std::strcmp(this->data, rhs.data) == 0);
+  std::cout << rhs.data << " == " << this->data << " : " << std::boolalpha << ret << std::endl;
+  return ret;
 }
 
-
 Token::~Token() {
-  //std::cout << "Destroying token " << data << "." << std::endl;
+//  std::cout << "Destroying token " << data << "." << std::endl;
+  delete[] data;
 }
 
 std::ostream& operator<<(std::ostream& os, const Token& tok) {

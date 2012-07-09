@@ -5,17 +5,18 @@
 #include <vector>
 #include <memory>
 #include "token.h"
+#include "../Input.h"
 
 namespace LPC {
 namespace Grammar {
 
 class Lexer {
 public:
-  Lexer(const char* data, std::size_t len);
-  Lexer(const char* data, const char* data_end);
-  ~Lexer();
+  Lexer(Input&);
+  ~Lexer() = default;
   void DumpTokens();
   void Lex();
+  int CountTokens() const;
 private:
   std::vector<std::unique_ptr<Token>> tokens;
   unsigned short current_line;
@@ -37,9 +38,8 @@ private:
   // pointer to token end
   const char* te;
        
-//  void addToken(TokenType token_type, std::string token_data);
-  void addToken(TokenType token_type, const char* ts, const char* te);
-  void advanceLocation(const char *ts, const char *te);
+  void addToken(TokenType, const char*, const char*);
+  void advanceLocation(const char*, const char*);
 };
 
 } /* namespace Grammar */

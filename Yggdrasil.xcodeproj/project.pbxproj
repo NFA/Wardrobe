@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ADCB279315A6E15F00D55E6F /* lexer.rl in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279215A6DCD600D55E6F /* lexer.rl */; };
+		AD72171315AACC8B0024F173 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279B15A7276700D55E6F /* token.cpp */; };
+		AD72171C15AACCA80024F173 /* lexer.rl in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279215A6DCD600D55E6F /* lexer.rl */; settings = {COMPILER_FLAGS = "--std=c++11 --stdlib=libc++"; }; };
+		AD72172415AACE400024F173 /* libtoken.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD72170F15AACC7B0024F173 /* libtoken.a */; };
+		AD72172515AACE590024F173 /* liblexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD72171815AACC960024F173 /* liblexer.a */; };
+		AD72172815AAF7710024F173 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD72172715AAF7710024F173 /* input.cpp */; };
 		ADCB279515A6E1C200D55E6F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279415A6E1C200D55E6F /* main.cpp */; };
-		ADCB279C15A7276700D55E6F /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADCB279B15A7276700D55E6F /* token.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
-		ADCB279115A6DC0A00D55E6F /* PBXBuildRule */ = {
+		AD72171F15AACCEC0024F173 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.rl";
@@ -22,9 +25,26 @@
 			outputFiles = (
 				"${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.cpp",
 			);
-			script = "echo \"Generating source code from ragel input files.\"\n\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -G2 -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating graph file from ragel grammar.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -V -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.dot";
+			script = "echo \"Generating source code from ragel input files.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -G2 -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating graph file from ragel grammar.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -V -o ${PROJECT_DIR}/derived/${INPUT_FILE_BASE}.dot\n";
 		};
 /* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		AD72171D15AACCBD0024F173 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADCB277B15A6DB7600D55E6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD72170E15AACC7B0024F173;
+			remoteInfo = token;
+		};
+		AD72172215AACD190024F173 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADCB277B15A6DB7600D55E6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD72171715AACC960024F173;
+			remoteInfo = lexer;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		ADCB278215A6DB7600D55E6F /* CopyFiles */ = {
@@ -40,25 +60,57 @@
 
 /* Begin PBXFileReference section */
 		AD41C17015A75B96005BDE6F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		ADCB278415A6DB7600D55E6F /* Yggdrasil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Yggdrasil; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD72170F15AACC7B0024F173 /* libtoken.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtoken.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD72171815AACC960024F173 /* liblexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD72172715AAF7710024F173 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
+		AD72172915AAF78B0024F173 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		AD72172A15AB0CAE0024F173 /* tokens.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = tokens.txt; sourceTree = "<group>"; };
+		AD72172B15AB0D0A0024F173 /* MFT.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MFT.txt; sourceTree = "<group>"; };
+		ADCB278415A6DB7600D55E6F /* Yggdrasil */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = Yggdrasil; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADCB279215A6DCD600D55E6F /* lexer.rl */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = lexer.rl; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		ADCB279415A6E1C200D55E6F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		ADCB279915A717E500D55E6F /* lexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lexer.h; sourceTree = "<group>"; };
+		ADCB279915A717E500D55E6F /* lexer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = lexer.h; sourceTree = "<group>"; };
 		ADCB279A15A725C700D55E6F /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
 		ADCB279B15A7276700D55E6F /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		ADCB278115A6DB7600D55E6F /* Frameworks */ = {
+		AD72170C15AACC7B0024F173 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD72171515AACC960024F173 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72172415AACE400024F173 /* libtoken.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADCB278115A6DB7600D55E6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72172515AACE590024F173 /* liblexer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD72170915AACB890024F173 /* LPC */ = {
+			isa = PBXGroup;
+			children = (
+				ADCB279E15A727A100D55E6F /* Grammar */,
+				AD72172715AAF7710024F173 /* input.cpp */,
+				AD72172915AAF78B0024F173 /* input.h */,
+			);
+			path = LPC;
+			sourceTree = "<group>";
+		};
 		ADCB277915A6DB7600D55E6F = {
 			isa = PBXGroup;
 			children = (
@@ -72,7 +124,11 @@
 		ADCB278515A6DB7600D55E6F /* bin */ = {
 			isa = PBXGroup;
 			children = (
+				AD72172B15AB0D0A0024F173 /* MFT.txt */,
+				AD72172A15AB0CAE0024F173 /* tokens.txt */,
 				ADCB278415A6DB7600D55E6F /* Yggdrasil */,
+				AD72170F15AACC7B0024F173 /* libtoken.a */,
+				AD72171815AACC960024F173 /* liblexer.a */,
 			);
 			path = bin;
 			sourceTree = "<group>";
@@ -87,14 +143,14 @@
 		ADCB279815A6E80300D55E6F /* src */ = {
 			isa = PBXGroup;
 			children = (
+				AD72170915AACB890024F173 /* LPC */,
 				ADCB279715A6E7EB00D55E6F /* derived */,
-				ADCB279E15A727A100D55E6F /* grammar */,
 				ADCB279415A6E1C200D55E6F /* main.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
 		};
-		ADCB279E15A727A100D55E6F /* grammar */ = {
+		ADCB279E15A727A100D55E6F /* Grammar */ = {
 			isa = PBXGroup;
 			children = (
 				ADCB279215A6DCD600D55E6F /* lexer.rl */,
@@ -102,7 +158,7 @@
 				ADCB279B15A7276700D55E6F /* token.cpp */,
 				ADCB279A15A725C700D55E6F /* token.h */,
 			);
-			path = grammar;
+			path = Grammar;
 			sourceTree = "<group>";
 		};
 		ADCB279F15A753AD00D55E6F /* etc */ = {
@@ -114,7 +170,60 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		AD72170D15AACC7B0024F173 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72171615AACC960024F173 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		AD72170E15AACC7B0024F173 /* token */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD72171015AACC7B0024F173 /* Build configuration list for PBXNativeTarget "token" */;
+			buildPhases = (
+				AD72170B15AACC7B0024F173 /* Sources */,
+				AD72170C15AACC7B0024F173 /* Frameworks */,
+				AD72170D15AACC7B0024F173 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = token;
+			productName = token;
+			productReference = AD72170F15AACC7B0024F173 /* libtoken.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AD72171715AACC960024F173 /* lexer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD72171915AACC960024F173 /* Build configuration list for PBXNativeTarget "lexer" */;
+			buildPhases = (
+				AD72171415AACC960024F173 /* Sources */,
+				AD72171515AACC960024F173 /* Frameworks */,
+				AD72171615AACC960024F173 /* Headers */,
+			);
+			buildRules = (
+				AD72171F15AACCEC0024F173 /* PBXBuildRule */,
+			);
+			dependencies = (
+				AD72171E15AACCBD0024F173 /* PBXTargetDependency */,
+			);
+			name = lexer;
+			productName = lexer;
+			productReference = AD72171815AACC960024F173 /* liblexer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		ADCB278315A6DB7600D55E6F /* Yggdrasil */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ADCB278E15A6DB7600D55E6F /* Build configuration list for PBXNativeTarget "Yggdrasil" */;
@@ -124,9 +233,9 @@
 				ADCB278215A6DB7600D55E6F /* CopyFiles */,
 			);
 			buildRules = (
-				ADCB279115A6DC0A00D55E6F /* PBXBuildRule */,
 			);
 			dependencies = (
+				AD72172315AACD190024F173 /* PBXTargetDependency */,
 			);
 			name = Yggdrasil;
 			productName = ragel_test;
@@ -155,29 +264,103 @@
 			projectRoot = "";
 			targets = (
 				ADCB278315A6DB7600D55E6F /* Yggdrasil */,
+				AD72170E15AACC7B0024F173 /* token */,
+				AD72171715AACC960024F173 /* lexer */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AD72170B15AACC7B0024F173 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72171315AACC8B0024F173 /* token.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72171415AACC960024F173 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72171C15AACCA80024F173 /* lexer.rl in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADCB278015A6DB7600D55E6F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADCB279315A6E15F00D55E6F /* lexer.rl in Sources */,
-				ADCB279C15A7276700D55E6F /* token.cpp in Sources */,
 				ADCB279515A6E1C200D55E6F /* main.cpp in Sources */,
+				AD72172815AAF7710024F173 /* input.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AD72171E15AACCBD0024F173 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD72170E15AACC7B0024F173 /* token */;
+			targetProxy = AD72171D15AACCBD0024F173 /* PBXContainerItemProxy */;
+		};
+		AD72172315AACD190024F173 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD72171715AACC960024F173 /* lexer */;
+			targetProxy = AD72172215AACD190024F173 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AD72171115AACC7B0024F173 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AD72171215AACC7B0024F173 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AD72171A15AACC960024F173 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CXX_FLAGS = "--std=c++11 --stdlib=libc++";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = "c++11";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+			};
+			name = Debug;
+		};
+		AD72171B15AACC960024F173 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CXX_FLAGS = "--std=c++11 --stdlib=libc++";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = "c++11";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+			};
+			name = Release;
+		};
 		ADCB278C15A6DB7600D55E6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -196,6 +379,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "${PROJECT_DIR}/bin/";
 			};
 			name = Debug;
 		};
@@ -204,6 +388,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -215,6 +401,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "${PROJECT_DIR}/bin/";
 			};
 			name = Release;
 		};
@@ -241,6 +428,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AD72171015AACC7B0024F173 /* Build configuration list for PBXNativeTarget "token" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD72171115AACC7B0024F173 /* Debug */,
+				AD72171215AACC7B0024F173 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AD72171915AACC960024F173 /* Build configuration list for PBXNativeTarget "lexer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD72171A15AACC960024F173 /* Debug */,
+				AD72171B15AACC960024F173 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		ADCB277E15A6DB7600D55E6F /* Build configuration list for PBXProject "Yggdrasil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

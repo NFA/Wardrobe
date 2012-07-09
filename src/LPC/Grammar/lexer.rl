@@ -17,10 +17,6 @@ char *getTokenData(const char* start, const char* end) {
 
 }
 
-//std::string getTokenData(const char* start, const char* end) {
-//  return std::string(start).substr(0, end - start);
-//}
-
 %%{
 
 machine lexer;
@@ -61,24 +57,19 @@ action number_tok {
 action space_tok {
   switch (*ts) {
     case ' ':
-//      std::cout << "whitespace";
       ++current_column;
       break;
     case '\t':
-//      std::cout << "tab";
+      ++current_line;
       break;
     case '\n':
-//      std::cout << "newline";
       ++current_line;
       current_column = 0;
       break;
     case '\r':
-//      std::cout << "carriage return";
+      // nop, only handle CRLF and LF newlines
       break;
   }
-//  std::cout << "identifier(\"";
-//  std::cout.write(ts, te - ts);
-//  std::cout << "\")\n";
 }
 
 number  = [0-9]+([0-9]+)?;
@@ -111,24 +102,10 @@ main := |*
 // it the lexer header    
 %% write data;
 
-
-Lexer::~Lexer() {
-  std::cout << "Lexer destroyed." << std::endl;
-}
-
-Lexer::Lexer(const char* data, std::size_t len): p(data), pe(data+len), eof(pe) {
-  current_line = 0;
-  current_column = 0;
-
-  %% write init;
-
-}
-
-Lexer::Lexer(const char* data, const char* data_end): p(data), pe(data_end), eof(pe) {
+Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof(pe) {
   current_line = 0;
   current_column = 0;
   %% write init;
-
 }
 
 
@@ -146,10 +123,10 @@ void Lexer::DumpTokens() {
   }
 }
 
+int Lexer::CountTokens() const {
+  return tokens.size();
+}
 
-//void Lexer::addToken(TokenType token_type, std::string token_data) {
-//  tokens.push_back(std::unique_ptr<Token>(new Token(token_type, token_data)));
-//}
 
 void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
   tokens.push_back(std::unique_ptr<Token>(
@@ -161,6 +138,7 @@ void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
 void Lexer::advanceLocation(const char *ts, const char *te) {
   current_column += (unsigned short)(te - ts);
 }
+
 
 } /* namespace Grammar */
 } /* namespace LPC */

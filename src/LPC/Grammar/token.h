@@ -20,14 +20,15 @@ std::string printTokenType(TokenType &tok);
 
 class Token {
 public:
-  Token(TokenType type, std::string data);
-  Token(TokenType type, std::string data, unsigned short line, unsigned short column);
-  Token(const Token& src);
+  Token(TokenType, const char*);
+  Token(TokenType, const char*, unsigned short, unsigned short);
+  Token(const Token&) = delete;
   ~Token();
+  bool operator==(const Token&) const;
   friend std::ostream& operator<<(std::ostream&, const Token&);
 private:
   TokenType type;
-  std::string data; 
+  const char* data; 
   std::pair<unsigned short, unsigned short> loc;
 };
 
