@@ -38,9 +38,9 @@ std::string printTokenType(const TokenType &tok) {
   return ret;
 }
 
-Token::Token(TokenType type, std::string data, short line, short col) : 
+Token::Token(TokenType type, std::string data, unsigned short line, unsigned short col) : 
   type(type), data(data), loc(line, col) {
-  std::cout << "Constructing a token." << std::endl;
+  //std::cout << "Constructing a token." << std::endl;
 }
 
 Token::Token(TokenType type, std::string data) :

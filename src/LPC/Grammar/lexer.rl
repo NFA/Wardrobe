@@ -8,7 +8,7 @@
 namespace LPC {
 namespace Grammar {
 
-/*
+
 char *getTokenData(const char* start, const char* end) {
   char *data = new char[end - start + 1];
   strncpy(data, start, end - start);
@@ -16,51 +16,69 @@ char *getTokenData(const char* start, const char* end) {
   return data;
 
 }
-*/
 
-std::string getTokenData(const char* start, const char* end) {
-  return std::string(start).substr(0, end - start);
-}
+//std::string getTokenData(const char* start, const char* end) {
+//  return std::string(start).substr(0, end - start);
+//}
 
 %%{
 
 machine lexer;
 
 action semi_tok {
-  addToken(TokenType::Semi, getTokenData(ts, te));
+  addToken(TokenType::Semi, ts, te);
 }
     
 action plus_tok {
-  addToken(TokenType::Plus, getTokenData(ts, te));
+  addToken(TokenType::Plus, ts, te);
 }
 
 action minus_tok {
-  addToken(TokenType::Minus, getTokenData(ts, te));
+  addToken(TokenType::Minus, ts, te);
 }
 
 action times_tok {
-    addToken(TokenType::Times, getTokenData(ts, te));
+  addToken(TokenType::Times, ts, te);
 }
 
 action divide_tok {
-  addToken(TokenType::Divide, getTokenData(ts, te));
+  addToken(TokenType::Divide, ts, te);
 }
 
 action openp_tok {
-  addToken(TokenType::OpenP, getTokenData(ts, te));
+  addToken(TokenType::OpenP, ts, te);
 }
 
 action closep_tok {
-  addToken(TokenType::CloseP, getTokenData(ts, te));
+  addToken(TokenType::CloseP, ts, te);
 }
 
 action number_tok {
-  addToken(TokenType::Number, getTokenData(ts, te));
+  addToken(TokenType::Number, ts, te);
   
 }
 
 action space_tok {
-  //++line_col;
+  switch (*ts) {
+    case ' ':
+//      std::cout << "whitespace";
+      ++current_column;
+      break;
+    case '\t':
+//      std::cout << "tab";
+      break;
+    case '\n':
+//      std::cout << "newline";
+      ++current_line;
+      current_column = 0;
+      break;
+    case '\r':
+//      std::cout << "carriage return";
+      break;
+  }
+//  std::cout << "identifier(\"";
+//  std::cout.write(ts, te - ts);
+//  std::cout << "\")\n";
 }
 
 number  = [0-9]+([0-9]+)?;
@@ -90,24 +108,31 @@ main := |*
 // had ragel command %%write data here previously but I want the data members to 
 // part of the Lexer class definiation, so i declared
 // static const int lexer_start = 1
-// it the lexer header   
-%% write data;    
+// it the lexer header    
+%% write data;
 
 
 Lexer::~Lexer() {
   std::cout << "Lexer destroyed." << std::endl;
-  //ParseFree(lparser, free);
 }
 
 Lexer::Lexer(const char* data, std::size_t len): p(data), pe(data+len), eof(pe) {
+  current_line = 0;
+  current_column = 0;
 
-  //lparser = ParserAlloc(malloc);
-  
   %% write init;
 
 }
 
-void Lexer::Execute() { 
+Lexer::Lexer(const char* data, const char* data_end): p(data), pe(data_end), eof(pe) {
+  current_line = 0;
+  current_column = 0;
+  %% write init;
+
+}
+
+
+void Lexer::Lex() { 
   %% write exec;
 }
 
@@ -122,8 +147,19 @@ void Lexer::DumpTokens() {
 }
 
 
-void Lexer::addToken(TokenType token_type, std::string token_data) {
-  tokens.push_back(std::unique_ptr<Token>(new Token(token_type, token_data)));
+//void Lexer::addToken(TokenType token_type, std::string token_data) {
+//  tokens.push_back(std::unique_ptr<Token>(new Token(token_type, token_data)));
+//}
+
+void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
+  tokens.push_back(std::unique_ptr<Token>(
+    new Token(token_type, getTokenData(ts, te), current_line, current_column)
+  ));
+  advanceLocation(ts, te);
+}
+
+void Lexer::advanceLocation(const char *ts, const char *te) {
+  current_column += (unsigned short)(te - ts);
 }
 
 } /* namespace Grammar */
