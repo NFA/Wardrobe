@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include "token.h"
-#include "../Input.h"
+#include "../input.h"
 
 namespace LPC {
 namespace Grammar {

@@ -1,1 +1,1 @@
-add_library(token token)
+add_library(token STATIC token)

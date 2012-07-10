@@ -7,5 +7,5 @@ add_subdirectory(LPC)
 add_subdirectory(derived)
 
 add_executable(yggdrasil main)
-target_link_libraries(yggdrasil lexer)
+target_link_libraries(yggdrasil input lexer ${LINKER_FLAGS})
 
