@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <cstring>
 #include "token.h"
 
 namespace LPC {
@@ -51,7 +52,7 @@ Token::Token(TokenType type, const char* data) :
 }
 
 bool Token::operator==(const Token& rhs) const {
-  bool ret = (this->type == rhs.type) && (std::strcmp(this->data, rhs.data) == 0);
+  bool ret = (this->type == rhs.type) && (strcmp(this->data, rhs.data) == 0);
   std::cout << rhs.data << " == " << this->data << " : " << std::boolalpha << ret << std::endl;
   return ret;
 }
