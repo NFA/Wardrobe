@@ -54,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		AD2F62D615AD71AC0042CA7C /* libinput.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libinput.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2F62F915ADB28E0042CA7C /* AST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AST.h; sourceTree = "<group>"; };
 		AD41C17015A75B96005BDE6F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AD72170F15AACC7B0024F173 /* libtoken.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtoken.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD72171815AACC960024F173 /* liblexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +162,7 @@
 				ADCB279915A717E500D55E6F /* lexer.h */,
 				ADCB279B15A7276700D55E6F /* token.cpp */,
 				ADCB279A15A725C700D55E6F /* token.h */,
+				AD2F62F915ADB28E0042CA7C /* AST.h */,
 			);
 			path = Grammar;
 			sourceTree = "<group>";
