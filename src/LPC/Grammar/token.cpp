@@ -7,37 +7,28 @@
 namespace LPC {
 namespace Grammar {
 
-
-std::string printTokenType(const TokenType &tok) {
-  std::string ret;
-  switch (tok) {
-    case TokenType::Semi:
-      ret = "semi";
-      break;
-    case TokenType::Plus:
-      ret = "plus";
-      break;
-    case TokenType::Minus:
-      ret = "minus";
-      break;
-    case TokenType::Times:
-      ret = "times";
-      break;
-    case TokenType::Divide:
-      ret = "divide";
-      break;
-    case TokenType::OpenP:
-      ret = "openP";
-      break;
-    case TokenType::CloseP:
-      ret = "closeP";
-      break;
-    case TokenType::Number:
-      ret = "number";
-      break;
+// Clunky!!
+const char* getTokenStr(const TokenType &tok) { 
+  switch(tok) {
+  case TokenType::Identifier: return "identifier";  break;
+  case TokenType::Integer:    return "integer";     break;
+  case TokenType::Float:      return "float";       break;
+  case TokenType::Assign:     return "assign";      break;
+  case TokenType::Return:     return "return";      break;
+  case TokenType::OpenParen:  return "open_p";      break;
+  case TokenType::CloseParen: return "close_p";     break;
+  case TokenType::OpenBrace:  return "open_brace";  break;
+  case TokenType::CloseBrace: return "close_brace"; break;
+  case TokenType::Semi:       return "semi";        break;
+  case TokenType::Comma:      return "comma";       break;
+  case TokenType::Add:        return "add";         break;
+  case TokenType::Sub:        return "sub";         break;
+  case TokenType::Mult:       return "mult";        break;
+  case TokenType::Div:        return "div";         break;
+  default: return "unknown"; break;
   }
-  return ret;
 }
+
 
 Token::Token(TokenType type, const char* data, unsigned short line, unsigned short col) : 
   type(type), data(data), loc(line, col) {
@@ -63,10 +54,9 @@ Token::~Token() {
 }
 
 std::ostream& operator<<(std::ostream& os, const Token& tok) {
-  std::string tt;
+  const char* tt = getTokenStr(tok.type);
   std::stringstream data;
   std::stringstream loc;
-  tt = printTokenType(tok.type);
   data << "'" << tok.data << "'";
   loc << "Loc<" << tok.loc.first << ":" << tok.loc.second << ">" ;
   os << std::setw(12) << tt;

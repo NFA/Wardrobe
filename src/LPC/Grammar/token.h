@@ -1,22 +1,38 @@
 #ifndef ragel_test_token_h
 #define ragel_test_token_h
-
+#include <unordered_map>
+#include <string>
 
 namespace LPC {
 namespace Grammar {
 
-enum class TokenType: unsigned int {
+enum class TokenType: unsigned char {
+  //
+  Identifier,
+  //
+  Integer,
+  Float,
+  //
+  Assign,
+  // Control
+  Return,
+  // Structure
+  OpenParen,
+  CloseParen,
+  OpenBrace,
+  CloseBrace,
   Semi,
-  Plus,
-  Minus,
-  Times,
-  Divide,
-  OpenP,
-  CloseP,
-  Number,
+  Comma,
+  // Logic
+  // Arithmetic
+  Add,
+  Sub,
+  Mult,
+  Div,
 };
+ 
 
-std::string printTokenType(TokenType &tok);
+const char* getTokenStr(const TokenType &tok); 
 
 class Token {
 public:

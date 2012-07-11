@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "lexer.h"
 #include "token.h"
+#include "../LPC/input.h"
 
 namespace LPC {
 namespace Grammar {
@@ -21,50 +22,17 @@ char *getTokenData(const char* start, const char* end) {
 
 machine lexer;
 
-action semi_tok {
-  addToken(TokenType::Semi, ts, te);
-}
-    
-action plus_tok {
-  addToken(TokenType::Plus, ts, te);
-}
-
-action minus_tok {
-  addToken(TokenType::Minus, ts, te);
-}
-
-action times_tok {
-  addToken(TokenType::Times, ts, te);
-}
-
-action divide_tok {
-  addToken(TokenType::Divide, ts, te);
-}
-
-action openp_tok {
-  addToken(TokenType::OpenP, ts, te);
-}
-
-action closep_tok {
-  addToken(TokenType::CloseP, ts, te);
-}
-
-action number_tok {
-  addToken(TokenType::Number, ts, te);
-  
-}
-
 action space_tok {
   switch (*ts) {
     case ' ':
-      ++current_column;
+      ++offset;
       break;
     case '\t':
-      ++current_line;
+      ++line_nr;
       break;
     case '\n':
-      ++current_line;
-      current_column = 0;
+      ++line_nr;
+      offset = 0;
       break;
     case '\r':
       // nop, only handle CRLF and LF newlines
@@ -72,25 +40,35 @@ action space_tok {
   }
 }
 
-number  = [0-9]+([0-9]+)?;
-plus    = '+';
-minus   = '-';
-openp   = '(';
-closep  = ')';
-times   = '*';
-divide  = '/';
-semi    = ';';
+identifier  = [a-zA-Z_][a-zA-Z_0-9]*;
+integer     = digit+;
+float       = /digit+.\.digit+/;
 
 main := |*
-  number  => number_tok;
-  plus    => plus_tok;
-  minus   => minus_tok;
-  openp   => openp_tok;
-  closep  => closep_tok;
-  times   => times_tok;
-  divide  => divide_tok;
-  semi    => semi_tok;
-  space   => space_tok;
+  #
+  identifier  => { addToken(TokenType::Identifier,  ts, te); };
+  integer     => { addToken(TokenType::Integer,     ts, te); };
+  float       => { addToken(TokenType::Float,       ts, te); };
+  # inc dec assig ..
+  '='         => { addToken(TokenType::Assign,      ts, te); };
+  # Control
+  'return'    => { addToken(TokenType::Return,      ts, te); };
+  # Structure
+  '('         => { addToken(TokenType::OpenParen,   ts, te); };
+  ')'         => { addToken(TokenType::CloseParen,  ts, te); };
+  '{'         => { addToken(TokenType::OpenBrace,   ts, te); };
+  '}'         => { addToken(TokenType::CloseBrace,  ts, te); };
+  ';'         => { addToken(TokenType::Semi,        ts, te); };
+  ','         => { addToken(TokenType::Comma,       ts, te); };
+  # Logic
+  
+  # Arithmetic 
+  '+'         => { addToken(TokenType::Add,         ts, te); };
+  '-'         => { addToken(TokenType::Sub,         ts, te); };
+  '*'         => { addToken(TokenType::Mult,        ts, te); };
+  '/'         => { addToken(TokenType::Div,         ts, te); };
+  # Misc
+  space       => space_tok;
   *|;
     
         
@@ -103,8 +81,8 @@ main := |*
 %% write data;
 
 Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof(pe) {
-  current_line = 0;
-  current_column = 0;
+  line_nr = 0;
+  offset = 0;
   %% write init;
 }
 
@@ -130,13 +108,13 @@ int Lexer::CountTokens() const {
 
 void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
   tokens.push_back(std::unique_ptr<Token>(
-    new Token(token_type, getTokenData(ts, te), current_line, current_column)
+    new Token(token_type, getTokenData(ts, te), line_nr, offset)
   ));
   advanceLocation(ts, te);
 }
 
 void Lexer::advanceLocation(const char *ts, const char *te) {
-  current_column += (unsigned short)(te - ts);
+  offset += (unsigned short)(te - ts);
 }
 
 

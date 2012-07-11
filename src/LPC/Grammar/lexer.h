@@ -5,10 +5,15 @@
 #include <vector>
 #include <memory>
 #include "token.h"
-#include "../input.h"
 
 namespace LPC {
+
+class Input;
+
 namespace Grammar {
+
+// Forward declarations
+enum class TokenType: unsigned char;
 
 class Lexer {
 public:
@@ -19,24 +24,28 @@ public:
   int CountTokens() const;
 private:
   std::vector<std::unique_ptr<Token>> tokens;
-  unsigned short current_line;
-  unsigned short current_column;
-  // Required variables by Ragel
+  unsigned short line_nr;
+  unsigned short offset;
   
-  // current state
+  // Required variables by Ragel
+  //
+  // cs     current state
+  // p      pointer to data
+  // pe     pointer to data end
+  // eof    pointer to eof
+  // act    scanner bookkeeping variable
+  // ts     pointer to token start
+  // te     pointer to token end
+  
   int cs;
-  // data pointer
   const char* p;
-  // data end pointer
   const char* pe;
-  // eof pointer
   const char* eof;
-  // scanner bookkeeping variable
   int act;
-  // pointer to token start
   const char* ts;
-  // pointer to token end
   const char* te;
+  
+  // end Ragel variables
        
   void addToken(TokenType, const char*, const char*);
   void advanceLocation(const char*, const char*);
