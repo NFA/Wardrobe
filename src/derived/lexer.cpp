@@ -21,7 +21,7 @@ char *getTokenData(const char* start, const char* end) {
 }
 
 
-#line 75 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+#line 138 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 
 
 // had ragel command %%write data here previously but I want the data members to 
@@ -37,7 +37,7 @@ static const int lexer_error = 0;
 static const int lexer_en_main = 9;
 
 
-#line 82 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+#line 145 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
 
 Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof(pe) {
   line_nr = 0;
@@ -51,25 +51,41 @@ Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof
 	act = 0;
 	}
 
-#line 87 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+#line 150 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+}
+
+void Lexer::LexAllTokens() {
+  TokenType stop;
+  do {
+    stop = LexToken();
+  } while (p != pe);
 }
 
 
-void Lexer::Lex() { 
+TokenType Lexer::LexToken() { 
+  TokenType ret = TokenType::END;
   
-#line 61 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
+#line 69 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
 	switch ( cs )
 	{
 tr0:
-#line 49 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{{p = ((te))-1;}{ addToken(TokenType::Identifier,  ts, te); }}
+#line 50 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{{p = ((te))-1;}{ 
+    ret = TokenType::Identifier;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr8:
-#line 51 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Float,       ts, te); }}
+#line 60 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Float;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr9:
 #line 25 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
@@ -92,56 +108,108 @@ tr9:
 }}
 	goto st9;
 tr11:
-#line 57 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::OpenParen,   ts, te); }}
+#line 80 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::OpenParen;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr12:
-#line 58 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::CloseParen,  ts, te); }}
+#line 85 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::CloseParen;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr13:
-#line 68 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Mult,        ts, te); }}
+#line 123 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Mult;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr14:
-#line 66 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Add,         ts, te); }}
+#line 113 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Add;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr15:
-#line 62 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Comma,       ts, te); }}
+#line 105 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Comma;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr16:
-#line 67 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Sub,         ts, te); }}
+#line 118 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Sub;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr17:
-#line 69 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Div,         ts, te); }}
+#line 128 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Div;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr19:
-#line 61 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Semi,        ts, te); }}
+#line 100 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Semi;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr20:
-#line 53 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::Assign,      ts, te); }}
+#line 67 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::Assign;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr24:
-#line 59 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::OpenBrace,   ts, te); }}
+#line 90 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::OpenBrace;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr25:
-#line 60 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p+1;{ addToken(TokenType::CloseBrace,  ts, te); }}
+#line 95 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p+1;{ 
+    ret = TokenType::CloseBrace;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr26:
-#line 50 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p;p--;{ addToken(TokenType::Integer,     ts, te); }}
+#line 55 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p;p--;{ 
+    ret = TokenType::Integer;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 tr27:
-#line 49 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
-	{te = p;p--;{ addToken(TokenType::Identifier,  ts, te); }}
+#line 50 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+	{te = p;p--;{ 
+    ret = TokenType::Identifier;
+    addToken(ret);
+    {p++; cs = 9; goto _out;}
+  }}
 	goto st9;
 st9:
 #line 1 "NONE"
@@ -151,7 +219,7 @@ st9:
 case 9:
 #line 1 "NONE"
 	{ts = p;}
-#line 155 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
+#line 223 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
 	switch( (*p) ) {
 		case 32: goto tr9;
 		case 40: goto tr11;
@@ -282,7 +350,7 @@ st16:
 	if ( ++p == pe )
 		goto _test_eof16;
 case 16:
-#line 286 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
+#line 354 "/Users/NFA/development/yggdrasil/src/derived/lexer.cpp"
 	switch( (*p) ) {
 		case 43: goto st1;
 		case 95: goto st11;
@@ -486,7 +554,8 @@ case 21:
 	_out: {}
 	}
 
-#line 92 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+#line 163 "/Users/NFA/development/yggdrasil/src/LPC/Grammar/lexer.rl"
+  return ret;
 }
 
 void Lexer::DumpTokens() {
@@ -504,7 +573,7 @@ int Lexer::CountTokens() const {
 }
 
 
-void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
+void Lexer::addToken(TokenType token_type) {
   tokens.push_back(std::unique_ptr<Token>(
     new Token(token_type, getTokenData(ts, te), line_nr, offset)
   ));

@@ -26,7 +26,7 @@
 			outputFiles = (
 				"${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.cpp",
 			);
-			script = "echo \"Generating source code from ragel input files.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -G2 -o ${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating graph file from ragel grammar.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -V -o ${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.dot\n";
+			script = "echo \"Removing old Ragel generated file.\"\nrm ${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating new source code from Ragel input files.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -G2 -o ${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.cpp\necho \"Generating graph file from Ragel grammar.\"\n/usr/local/bin/ragel ${INPUT_FILE_PATH} -V -o ${PROJECT_DIR}/src/derived/${INPUT_FILE_BASE}.dot\n";
 		};
 /* End PBXBuildRule section */
 
@@ -483,6 +483,7 @@
 				AD2F62D815AD71AC0042CA7C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD72171015AACC7B0024F173 /* Build configuration list for PBXNativeTarget "token" */ = {
 			isa = XCConfigurationList;

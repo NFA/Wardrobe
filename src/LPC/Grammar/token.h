@@ -7,6 +7,7 @@ namespace LPC {
 namespace Grammar {
 
 enum class TokenType: unsigned char {
+  END = 0,
   //
   Identifier,
   //
@@ -29,6 +30,7 @@ enum class TokenType: unsigned char {
   Sub,
   Mult,
   Div,
+  //
 };
  
 

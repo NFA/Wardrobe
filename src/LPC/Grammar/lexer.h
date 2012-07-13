@@ -21,6 +21,8 @@ public:
   ~Lexer() = default;
   void DumpTokens();
   void Lex();
+  void LexAllTokens();
+  TokenType LexToken();
   int CountTokens() const;
 private:
   std::vector<std::unique_ptr<Token>> tokens;
@@ -47,7 +49,7 @@ private:
   
   // end Ragel variables
        
-  void addToken(TokenType, const char*, const char*);
+  void addToken(TokenType);
   void advanceLocation(const char*, const char*);
 };
 

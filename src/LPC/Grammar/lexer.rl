@@ -46,27 +46,90 @@ float       = /digit+.\.digit+/;
 
 main := |*
   #
-  identifier  => { addToken(TokenType::Identifier,  ts, te); };
-  integer     => { addToken(TokenType::Integer,     ts, te); };
-  float       => { addToken(TokenType::Float,       ts, te); };
+  #
+  identifier  => { 
+    ret = TokenType::Identifier;
+    addToken(ret);
+    fbreak;
+  };
+  integer     => { 
+    ret = TokenType::Integer;
+    addToken(ret);
+    fbreak;
+  };
+  float       => { 
+    ret = TokenType::Float;
+    addToken(ret);
+    fbreak;
+  };
   # inc dec assig ..
-  '='         => { addToken(TokenType::Assign,      ts, te); };
+  #
+  '='         => { 
+    ret = TokenType::Assign;
+    addToken(ret);
+    fbreak;
+  };
   # Control
-  'return'    => { addToken(TokenType::Return,      ts, te); };
+  #
+  'return'    => { 
+    ret = TokenType::Return;
+    addToken(ret);
+    fbreak;
+  };
   # Structure
-  '('         => { addToken(TokenType::OpenParen,   ts, te); };
-  ')'         => { addToken(TokenType::CloseParen,  ts, te); };
-  '{'         => { addToken(TokenType::OpenBrace,   ts, te); };
-  '}'         => { addToken(TokenType::CloseBrace,  ts, te); };
-  ';'         => { addToken(TokenType::Semi,        ts, te); };
-  ','         => { addToken(TokenType::Comma,       ts, te); };
+  '('         => { 
+    ret = TokenType::OpenParen;
+    addToken(ret);
+    fbreak;
+  };
+  ')'         => { 
+    ret = TokenType::CloseParen;
+    addToken(ret);
+    fbreak;
+  };
+  '{'         => { 
+    ret = TokenType::OpenBrace;
+    addToken(ret);
+    fbreak;
+  };
+  '}'         => { 
+    ret = TokenType::CloseBrace;
+    addToken(ret);
+    fbreak;
+  };
+  ';'         => { 
+    ret = TokenType::Semi;
+    addToken(ret);
+    fbreak;
+  };
+  ','         => { 
+    ret = TokenType::Comma;
+    addToken(ret);
+    fbreak;
+  };
   # Logic
   
   # Arithmetic 
-  '+'         => { addToken(TokenType::Add,         ts, te); };
-  '-'         => { addToken(TokenType::Sub,         ts, te); };
-  '*'         => { addToken(TokenType::Mult,        ts, te); };
-  '/'         => { addToken(TokenType::Div,         ts, te); };
+  '+'         => { 
+    ret = TokenType::Add;
+    addToken(ret);
+    fbreak;
+  };
+  '-'         => { 
+    ret = TokenType::Sub;
+    addToken(ret);
+    fbreak;
+  };
+  '*'         => { 
+    ret = TokenType::Mult;
+    addToken(ret);
+    fbreak;
+  };
+  '/'         => { 
+    ret = TokenType::Div;
+    addToken(ret);
+    fbreak;
+  };
   # Misc
   space       => space_tok;
   *|;
@@ -86,9 +149,18 @@ Lexer::Lexer(Input& input) : p(input.GetBuffer()), pe(input.GetBufferEnd()), eof
   %% write init;
 }
 
+void Lexer::LexAllTokens() {
+  TokenType stop;
+  do {
+    stop = LexToken();
+  } while (p != pe);
+}
 
-void Lexer::Lex() { 
+
+TokenType Lexer::LexToken() { 
+  TokenType ret = TokenType::END;
   %% write exec;
+  return ret;
 }
 
 void Lexer::DumpTokens() {
@@ -106,7 +178,7 @@ int Lexer::CountTokens() const {
 }
 
 
-void Lexer::addToken(TokenType token_type, const char* ts, const char* te) {
+void Lexer::addToken(TokenType token_type) {
   tokens.push_back(std::unique_ptr<Token>(
     new Token(token_type, getTokenData(ts, te), line_nr, offset)
   ));

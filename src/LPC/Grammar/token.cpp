@@ -10,6 +10,7 @@ namespace Grammar {
 // Clunky!!
 const char* getTokenStr(const TokenType &tok) { 
   switch(tok) {
+  case TokenType::END:        return "END";         break;
   case TokenType::Identifier: return "identifier";  break;
   case TokenType::Integer:    return "integer";     break;
   case TokenType::Float:      return "float";       break;

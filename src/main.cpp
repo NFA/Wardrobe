@@ -26,15 +26,16 @@ int main() {
   std::vector<LPC::Input*> data;
   long long tokens = 0;
   long long iterations = 0;
+  int seconds = 10;
   
   std::chrono::steady_clock::time_point tend = std::chrono::steady_clock::now()
-                                               + std::chrono::seconds(30);
+                                               + std::chrono::seconds(seconds);
   
-  std::cout << "Starting lexing (30 seconds) ..." << std::endl;
+  std::cout << "Starting lexing (" << seconds << " seconds) ..." << std::endl;
   while (std::chrono::steady_clock::now()  < tend) {
     LPC::Input *input = new LPC::Input(data1);
     LPC::Grammar::Lexer *lexer = new LPC::Grammar::Lexer(*input);
-    lexer->Lex();
+    lexer->LexAllTokens();
     tokens += lexer->CountTokens();
     delete lexer;
     delete input;
@@ -61,11 +62,12 @@ int main() {
 //  std::cout << " lex3 size = " << lex3.CountTokens() << std::endl;
   std::cout << std::endl;
   
-  long long bytes_per_sec = (strlen(data1)*iterations)/30;
+  long long bytes_per_sec = (strlen(data1)*iterations)/seconds;
   double megabytes_per_sec = ((double)bytes_per_sec)/1024/1024;
 
   std::cout << "Done." << std::endl;
-  std::cout << tokens/30 << " tokens/sec." << std::endl;
+  std::cout << iterations << " iterations. " << std::endl;
+  std::cout << tokens/seconds << " tokens/sec." << std::endl;
   std::cout << megabytes_per_sec << " Mb/sec." << std::endl;
 //  lex1.DumpTokens();
 //  lex1.DumpTokens();
