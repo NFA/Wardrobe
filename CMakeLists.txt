@@ -1,9 +1,9 @@
 cmake_minimum_required (VERSION 2.6)
-project (Yggdrasil)
+project (Wardrobe)
 
 # Versioning
-set (Yggdrasil_VERSION_MAJOR 0)
-set (Yggdrasil_VERSION_MINOR 1)
+set (Wardrobe_VERSION_MAJOR 0)
+set (Wardrobe_VERSION_MINOR 1)
 
 # We're making heavy use of C++11 features
 add_definitions("-std=c++11 -Wall")
