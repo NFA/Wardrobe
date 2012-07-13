@@ -2,8 +2,9 @@ cmake_minimum_required (VERSION 2.6)
 project (Wardrobe)
 
 # Versioning
-set (Wardrobe_VERSION_MAJOR 0)
-set (Wardrobe_VERSION_MINOR 1)
+set (wardrobe_VERSION_MAJOR 0)
+set (wardrobe_VERSION_MINOR 1)
+set (wardrobe_VERSION_PATCH 0)
 
 # We're making heavy use of C++11 features
 add_definitions("-std=c++11 -Wall")

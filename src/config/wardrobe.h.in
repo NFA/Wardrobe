@@ -1,0 +1,4 @@
+// This file will be processed by CMake
+#define wardrobe_VERSION_MAJOR @wardrobe_VERSION_MAJOR@
+#define wardrobe_VERSION_MINOR @wardrobe_VERSION_MINOR@
+#define wardrobe_VERSION_PATCH @wardrobe_VERSIOn_PATCH@

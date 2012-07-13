@@ -1,12 +1,13 @@
 #include <iostream>
 #include <chrono>
-//#include "config/Wardrobe.h"
+//#include "config/wardrobe.h"
 #include "LPC/input.h"
 #include "LPC/Grammar/lexer.h"
 
 void header();
 
 int main() {
+  header();
 // Lexing ~12Mb text file took ~5.8 seconds
 // it contained >7M tokens
 // ~2.05 Mb/sec
@@ -31,7 +32,7 @@ int main() {
   std::chrono::steady_clock::time_point tend = std::chrono::steady_clock::now()
                                                + std::chrono::seconds(seconds);
   
-  std::cout << "Starting lexing (" << seconds << " seconds) ..." << std::endl;
+  std::cout << "\nStarting lexing (" << seconds << " seconds) ..." << std::endl;
   while (std::chrono::steady_clock::now()  < tend) {
     LPC::Input *input = new LPC::Input(data1);
     LPC::Grammar::Lexer *lexer = new LPC::Grammar::Lexer(*input);
@@ -47,7 +48,6 @@ int main() {
 //  LPC::Input input2(data2);
 //  LPC::Input input3(data3);
    
-  header();
 
 //  LPC::Grammar::Lexer lex1(input1);
 //  LPC::Grammar::Lexer lex2(input2);
@@ -75,8 +75,13 @@ int main() {
 }
 
 void header() {
-//  std::cout << "Yggdrasil " << Yggdrasil_VERSION_MAJOR 
-//	<< "." << Yggdrasil_VERSION_MINOR;
+  std::cout << "Wardrobe 0.1.0\nCopyright 2012, Fredrik Nyström." << std::endl;
+  /*
+  std::cout << "Wardrobe " << wardrobe_VERSION_MAJOR 
+	    << "."         << wardrobe_VERSION_MINOR
+            << "."         << wardrobe_VERSION_PATCH
+            << std::endl;
+*/
 }
 
 
