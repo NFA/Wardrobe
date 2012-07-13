@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <exception>
 #include "token.h"
 
 namespace LPC {
@@ -23,7 +24,14 @@ public:
   void Lex();
   void LexAllTokens();
   TokenType LexToken();
+  Token& LexToken();
   int CountTokens() const;
+  
+  class UnknownToken : public std::exception {
+  public:
+    UnknownToken(const char* tok) : std::exception(tok) {}
+  };
+  
 private:
   std::vector<std::unique_ptr<Token>> tokens;
   unsigned short line_nr;

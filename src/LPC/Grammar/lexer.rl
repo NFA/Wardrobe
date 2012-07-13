@@ -163,6 +163,12 @@ TokenType Lexer::LexToken() {
   return ret;
 }
 
+Token& Lexer::LexToken() {
+  LexToken();
+  return tokens.back();
+
+}
+
 void Lexer::DumpTokens() {
   std::cout << std::setw(12) << std::left << "Token";
   std::cout << std::setw(12) << std::left << "Data";
